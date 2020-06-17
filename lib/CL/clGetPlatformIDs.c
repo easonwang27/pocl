@@ -1,17 +1,17 @@
 /* OpenCL runtime library: clGetPlatformIDs()
 
-   Copyright (c) 2011 Kalle Raiskila 
-   
+   Copyright (c) 2011 Kalle Raiskila
+
    Permission is hereby granted, free of charge, to any person obtaining a copy
    of this software and associated documentation files (the "Software"), to deal
    in the Software without restriction, including without limitation the rights
    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
    copies of the Software, and to permit persons to whom the Software is
    furnished to do so, subject to the following conditions:
-   
+
    The above copyright notice and this permission notice shall be included in
    all copies or substantial portions of the Software.
-   
+
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -236,9 +236,9 @@ static struct _cl_platform_id _platforms[1] = {{ 1 }};
 #endif
 
 /*
- * Get the number of supported platforms on this system. 
+ * Get the number of supported platforms on this system.
  * On POCL, this trivially reduces to 1 - POCL itself.
- */ 
+ */
 CL_API_ENTRY cl_int CL_API_CALL
 POname(clGetPlatformIDs)(cl_uint           num_entries,
                          cl_platform_id *  platforms,
@@ -256,7 +256,7 @@ POname(clGetPlatformIDs)(cl_uint           num_entries,
   if (platforms != NULL) {
       platforms[0] = &_platforms[0];
   }
-  
+
   if (num_platforms != NULL)
     *num_platforms = 1;
 

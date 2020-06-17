@@ -36,7 +36,7 @@ POname(clEnqueueTask)(cl_command_queue   command_queue,
   const size_t localWS=1;
 
   return   POname(clEnqueueNDRangeKernel) (command_queue,
-					   kernel, 
+					   kernel,
 					   1 /*work_dim*/,
 					   NULL /*global_work_offset*/,
 					   &globalWS,

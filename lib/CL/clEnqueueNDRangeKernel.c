@@ -94,6 +94,7 @@ POname(clEnqueueNDRangeKernel)(cl_command_queue command_queue,
   if (errcode != CL_SUCCESS)
     return errcode;
 
+  printf("=========================================================================================================>\n");
   POCL_RETURN_ERROR_COND((work_dim < 1), CL_INVALID_WORK_DIMENSION);
   POCL_RETURN_ERROR_ON(
     (work_dim > command_queue->device->max_work_item_dimensions),

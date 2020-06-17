@@ -421,9 +421,11 @@ pocl_init_devices ()
      In case libhwloc has the OpenCL plugin installed, it initializes
      it and it leads to initializing pocl again which leads to an
      infinite loop. This only protects against recursive calls of
-     pocl_init_devices(), so must be done without pocl_init_lock held. */
+     pocl_init_devices(), so must be done without pocl_init_lock held. 
+  */
+
   if (init_in_progress)
-    return CL_SUCCESS; /* debatable, but what else can we do ? */
+        return CL_SUCCESS; /* debatable, but what else can we do ? */
 
   POCL_LOCK (pocl_init_lock);
   init_in_progress = 1;
