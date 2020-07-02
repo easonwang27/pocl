@@ -53,9 +53,6 @@ POname(clGetDeviceIDs)(cl_platform_id   platform,
     return err;
   total_num = pocl_get_device_type_count(device_type);
 
-  printf("total_num = %d\n",total_num);
-  printf("new line :\n");
-
   if (total_num == 0)
       return CL_DEVICE_NOT_FOUND;
 

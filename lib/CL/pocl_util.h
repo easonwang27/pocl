@@ -312,3 +312,5 @@ float half_to_float (uint16_t value);
   size_t i1d_region[3] = { r[0] * px, r[1], r[2] };
 
 #endif
+
+#define MT_PRINT() printf("[montage]====>%s %d\n",__func__,__LINE__)

@@ -24,6 +24,6 @@
 #=============================================================================
 
 if(MSVC)
-  set_source_files_properties( basic.h basic.c PROPERTIES LANGUAGE CXX )
+  set_source_files_properties( basic.h basic.c basic_layer.h basic_layer.c PROPERTIES LANGUAGE CXX )
 endif(MSVC)
-add_library("pocl-devices-basic" OBJECT basic.h basic.c)
+add_library("pocl-devices-basic" OBJECT basic.h basic.c basic_layer.h basic_layer.c)

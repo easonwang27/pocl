@@ -55,6 +55,7 @@
 #include "pocl_timing.h"
 #include "pocl_util.h"
 
+
 #ifdef HAVE_GETRLIMIT
 #include <sys/time.h>
 #include <sys/resource.h>
@@ -80,6 +81,8 @@
 
 #define WORKGROUP_STRING_LENGTH 1024
 
+extern void 
+montage_riscv_gencode(_cl_command_node *command);
 /**
  * Generate code from the final bitcode using the LLVM
  * tools.
@@ -157,6 +160,8 @@ llvm_codegen (char *output, unsigned device_i, cl_kernel kernel,
   if (pocl_exists (final_binary_path))
     goto FINISH;
 
+
+  printf("===> final_binary_path:%s \n",final_binary_path);
   error = pocl_llvm_codegen (device, llvm_module, &objfile, &objfile_size);
   if (error)
     {
@@ -662,7 +667,11 @@ pocl_exec_command (_cl_command_node * volatile node)
       pocl_update_event_running (event);
       assert (event == node->event);
       assert (dev->ops->run);
+
+      montage_riscv_gencode(node);
       dev->ops->run (dev->data, node);
+
+     
       POCL_UPDATE_EVENT_COMPLETE_MSG (event, "Event Enqueue NDRange       ");
       pocl_ndrange_node_cleanup(node);
       break;
@@ -1048,6 +1057,9 @@ fetch_dlhandle_cache_item (_cl_command_run *run_cmd)
  *
  * TODO: This function is really specific to CPU (host) drivers since dlhandles
  * imply program loading to the same process as the host. Move to basic.c? */
+
+
+
 void
 pocl_check_kernel_dlhandle_cache (_cl_command_node *command,
                                   unsigned initial_refcount, int specialize)
@@ -1057,6 +1069,7 @@ pocl_check_kernel_dlhandle_cache (_cl_command_node *command,
   const char *dl_error = NULL;
   _cl_command_run *run_cmd = &command->command.run;
 
+  printf("===> run_cmd->kernel = %p\n",run_cmd->kernel);
   POCL_LOCK (pocl_dlhandle_lock);
   ci = fetch_dlhandle_cache_item (run_cmd);
   if (ci != NULL)
@@ -1079,7 +1092,6 @@ pocl_check_kernel_dlhandle_cache (_cl_command_node *command,
 
   size_t max_grid_width = pocl_cmd_max_grid_dim_width (run_cmd);
   ci->max_grid_dim_width = max_grid_width;
-
   char *module_fn = pocl_check_kernel_disk_cache (command, specialize);
 
   ci->dlhandle = dlopen (module_fn, RTLD_NOW | RTLD_LOCAL);

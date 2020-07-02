@@ -1,3 +1,18 @@
 {
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "files.associations": {
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "iterator": "c",
+        "vector": "c",
+        "*.tcc": "c",
+        "ostream": "c",
+        "istream": "c",
+        "typeinfo": "c",
+        "*.def": "c",
+        "*.inc": "c",
+        "unordered_map": "c",
+        "__node_handle": "c"
+    }
 }
