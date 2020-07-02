@@ -74,6 +74,7 @@ pocl_basic_init_device_ops(struct pocl_device_ops *ops)
   ops->device_name = "basic";
 
   ops->probe = pocl_basic_probe;
+  //ops->probe = "1";
   ops->uninit = pocl_basic_uninit;
   ops->reinit = pocl_basic_reinit;
   ops->init = pocl_basic_init;
@@ -96,7 +97,8 @@ pocl_basic_init_device_ops(struct pocl_device_ops *ops)
   ops->broadcast = pocl_broadcast;
   ops->notify = pocl_basic_notify;
   ops->flush = pocl_basic_flush;
-  ops->build_hash = pocl_basic_build_hash;
+  //ops->build_hash = pocl_basic_build_hash;
+  ops->build_hash = NULL;
   ops->compute_local_size = pocl_default_local_size_optimizer;
 
   ops->svm_free = pocl_basic_svm_free;
@@ -123,20 +125,23 @@ pocl_basic_init_device_ops(struct pocl_device_ops *ops)
 char *
 pocl_basic_build_hash (cl_device_id device)
 {
+  
   char* res = calloc(1000, sizeof(char));
 #ifdef KERNELLIB_HOST_DISTRO_VARIANTS
   char *name = get_llvm_cpu_name ();
   snprintf (res, 1000, "basic-%s-%s", HOST_DEVICE_BUILD_HASH, name);
   POCL_MEM_FREE (name);
 #else
-  snprintf (res, 1000, "basic-%s", HOST_DEVICE_BUILD_HASH);
+  snprintf (res, 1000, "basic1-%s", HOST_DEVICE_BUILD_HASH);
 #endif
+  printf("===> res :%s \n",res);
   return res;
 }
 
 unsigned int
 pocl_basic_probe(struct pocl_device_ops *ops)
 {
+  #if 0
   int env_count = pocl_device_get_env_count(ops->device_name);
 
   /* No env specified, so pthread will be used instead of basic */
@@ -144,6 +149,11 @@ pocl_basic_probe(struct pocl_device_ops *ops)
     return 0;
 
   return env_count;
+
+  #else
+
+  return 1;
+  #endif
 }
 
 cl_int

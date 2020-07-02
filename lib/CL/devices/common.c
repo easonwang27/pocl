@@ -1561,7 +1561,6 @@ pocl_init_default_device_infos (cl_device_id dev)
   dev->device_alloca_locals = 0;
 
 #ifdef OCS_AVAILABLE
-
   dev->llvm_target_triplet = OCL_KERNEL_TARGET;
 #ifdef HOST_CPU_FORCED
   dev->llvm_cpu = OCL_KERNEL_TARGET_CPU;
